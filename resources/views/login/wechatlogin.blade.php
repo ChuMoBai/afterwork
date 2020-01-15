@@ -122,7 +122,7 @@
     //获取二维码的唯一标识
     var status = "{{$status}}";
     // alert(status);
-    // console.log(status);
+    console.log(status);
     //封装一个查询跳转登录的方法
     function check()
     {

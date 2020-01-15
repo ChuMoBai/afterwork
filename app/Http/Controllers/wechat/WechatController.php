@@ -38,7 +38,7 @@ class WechatController extends Controller
             //因为需要对比 所以我们要将数值存入到缓存
             if($status)
             {
-                $c = Cache::put($status,$openid,60);
+                Cache::put($status,$openid,60);
                 // dd($c);
                 //我们需要在用户扫码之后 发送消息，提示他扫码成功
                 Wechat::Responsetext("正在登陆，请稍后",$xml_arr);
