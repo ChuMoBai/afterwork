@@ -121,9 +121,8 @@ class LoginController extends Controller
         //调用封装的CURLPSOT方法，拿到换取二维码
         $data = Curl::Post($url,$data);
         $data = json_decode($data,1);
-        dd($data);
+        // dd($data);
         $ticket = $data['ticket'];
-        echo $ticket;
         $img_url = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=$ticket";
         // dd($img_url);
         return view('login/wechatlogin',['img_url'=>$img_url,'status'=>$status]);
@@ -132,15 +131,15 @@ class LoginController extends Controller
     // 执行微信扫码登录
     public function do_wechatlogin(Request $request)
     {
-        $all = $request->all();
-        // dd($all);
+        $status = $request->input('status');
+        // dd($status);
+        // var_dump($all);die;
         //查看缓存 如果缓存存在  则登录成功
-        $openid = Cache::get($all);
+        $openid = Cache::get($status);
+        // dd($openid);
         if(!$openid){
             return json_encode(['ret'=>0,'msg'=>"请先扫码在再操作"]);
         }else{
-            $request->session()->put('userinfo', $all);
-
             return json_encode(['ret'=>1,'msg'=>"登录成功"]);
         }
 
