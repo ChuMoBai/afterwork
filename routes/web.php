@@ -27,7 +27,7 @@ Route::any('/login/do_wechatlogin','login\LoginController@do_wechatlogin');
 
 Route::group(['middleware'=>['Login']],function(){
     Route::any('/admin/index','admin\AdminController@index');
-    Route::any('/login/logout','login\LoginController@logout');
+        Route::any('/login/logout','login\LoginController@logout');
 });
 
 //----------------------------配置微信的接入

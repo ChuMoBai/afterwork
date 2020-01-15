@@ -25,11 +25,11 @@ class Wechat{
     	$access_token = Cache::get("access_token");
     	if(empty($access_token)){
     		//缓存里面没有东西，写入缓存
-         	 $re = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_SECRET'));
+         	$re = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_SECRET'));
             $result = json_decode($re,true);
             $access_token = $result["access_token"];
             //储存两个小时
-            Cache::put("access_token",$access_token,7200);
+            // Cache::put("access_token",$access_token,7200);
     	}
     	// dd($access_token);
          return $access_token;
