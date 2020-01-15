@@ -138,6 +138,8 @@ class LoginController extends Controller
         if(!$openid){
             return json_encode(['ret'=>0,'msg'=>"请先扫码在再操作"]);
         }else{
+            $request->session()->put('userinfo', $all);
+            
             return json_encode(['ret'=>1,'msg'=>"登录成功"]);
         }
 

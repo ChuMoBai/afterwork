@@ -16,7 +16,7 @@ class WechatController extends Controller
         // echo $echostr;die;
         $info = file_get_contents("php://input");
         // dd($info);
-        // file_put_contents("1.txt",$info);
+        file_put_contents("1.txt",$info);
         //处理xml格式数据，将xml格式数据转换成对象
         $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
         // dd($xml_obj);
