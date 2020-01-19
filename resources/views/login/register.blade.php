@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/image/apple-icon.png">
     <link rel="icon" type="/assets/image/png" href="/assets/image/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Login</title>
+    <title>Register</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -49,25 +49,13 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">One more separated link</a>
                 </div> -->
-            <!-- </div> -->
-            <!-- <div class="navbar-translate">
-                <a class="navbar-brand" href="#" rel="tooltip" data-placement="bottom">
-                    Now Ui Kit
-                </a>
-                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
-                </button>
-            </div> -->
+            </div>
+
             <div class="collapse navbar-collapse justify-content-end" data-nav-image="/assets/image/blurred-image-1.jpg">
                 <ul class="navbar-nav">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Back to Kit</a>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#/issues">Have an issue?</a>
-                    </li> -->
+                        <a class="nav-link" href="/login/login">已有账号</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" rel="tooltip" title="Follow us on Wechat" data-placement="bottom" href="/login/wechatlogin" target="_blank">
                             <i class="fa fa-twitter"></i>
@@ -107,7 +95,7 @@
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons users_circle-08"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="请输入账号，如果还没有，请先去注册一下吧" name="name">
+                                <input type="text" class="form-control" placeholder="请输入账号" name="name">
                             </div>
                             <div class="input-group form-group-no-border input-lg">
                                 <span class="input-group-addon">
@@ -122,17 +110,17 @@
                                     @endif
                             </p>
                         <div class="footer text-center">
-                            <input type="button" class="btn btn-primary btn-round btn-lg btn-block" value="登录">
+                            <input type="button" class="btn btn-primary btn-round btn-lg btn-block" value="注册">
                             
                         </div>
                         <div class="pull-left">
                             <h6>
-                                <a href="/login/register" class="link">请点击注册</a>
+                                <a href="#pablo" class="link">Create Account</a>
                             </h6>
                         </div>
                         <div class="pull-right">
                             <h6>
-                                <a href="#pablo" class="link">找回密码</a>
+                                <a href="#pablo" class="link">Need Help?</a>
                             </h6>
                         </div>
                     </form>
@@ -166,7 +154,7 @@
             // alert(name);
             // alert(pwd);
             $.ajax({
-            url:"/login/do_login",
+            url:"http://www.afterwork.com/login/do_register",
             dataType:"json",
             data:{name:name,pwd:pwd},
             type:"post",
@@ -175,10 +163,10 @@
                     if(res.code==200)
                     {
                         alert(res.msg);
-                        location.href='/admin/index';
+                        location.href='/login/login';
                     }else{
                         alert(res.msg);
-                        location.href='/login/login';
+                        location.href='/login/register';
                     }
                 }
             }) 

@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::any('/login/register','login\LoginController@register');
+Route::any('/login/do_register','login\LoginController@do_register');
+
+
 Route::any('/login/login','login\LoginController@login');
 Route::any('/login/do_login','login\LoginController@do_login');
 
@@ -27,7 +31,8 @@ Route::any('/login/do_wechatlogin','login\LoginController@do_wechatlogin');
 
 Route::group(['middleware'=>['Login']],function(){
     Route::any('/admin/index','admin\AdminController@index');
-        Route::any('/login/logout','login\LoginController@logout');
+    Route::any('/admin/do_create_mobile','admin\AdminController@do_create_mobile');
+    Route::any('/login/logout','login\LoginController@logout');
 });
 
 //----------------------------配置微信的接入

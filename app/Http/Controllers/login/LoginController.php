@@ -13,6 +13,41 @@ use Illuminate\Support\Facades\Cache;
 class LoginController extends Controller
 {
     //
+    public function register(Request $request)
+    {
+        return view('login/register');
+    }
+
+    public function do_register(Request $request)
+    {
+        $all = $request->all();
+        // dd($all);
+        $info = UserModel::where('name',$all['name'])->first();
+        // dd($info);
+        if(empty($all['name'])||empty($all['pwd']))
+        {
+            $arr['code'] = 1;
+            $arr['msg'] = '参数错误，用户名或者密码不能为空';
+            $arr['data'] = [];
+            return json_encode($arr);
+        }
+        if($info)
+        {
+            $arr['code'] = 1;
+            $arr['msg'] = '用户名已存在，请重新输入';
+            $arr['data'] = [];
+            return json_encode($arr);
+        }
+        $all = UserModel::create($all);
+        if($all)
+        {
+            $arr['code'] = 200;
+            $arr['msg'] = '注册成功，请牢记您的账号和密码';
+            $arr['data'] = [];
+            return json_encode($arr);
+        }
+    }
+
     public function login(Request $request)
     {
         return view('login/login');
@@ -49,12 +84,13 @@ class LoginController extends Controller
                 $data['locknum'] = 3;
                 $data['sessionid'] = Session::getid();
                 // dd($data);
-                $data['sessiontime'] = time()+20;
+                $data['sessiontime'] = time()+1200;
                 // dd($data);
                 UserModel::where('u_id',$id)->update($data);
                 $request->session()->put('userinfo', $info);
+                $name = session('userinfo')['name'];
                 $arr['code'] = 200;
-                $arr['msg'] = '登录成功';
+                $arr['msg'] = "$name".",真羡慕你，年纪轻轻就遇到了我";
                 $arr['data'] = [];
                 return json_encode($arr);
             }else{
@@ -140,7 +176,24 @@ class LoginController extends Controller
         if(!$openid){
             return json_encode(['ret'=>0,'msg'=>"请先扫码在再操作"]);
         }else{
-            return json_encode(['ret'=>1,'msg'=>"登录成功"]);
+            //判断用户是否是新用户，如果是新用户 创建账号，（绑定手机号业务处理）
+            $info = UserModel::where('wechat_openid',$openid)->first();
+            // dd($wechatinfo);
+            $sessionid = Session::getid();
+            if(!$info)
+            {
+                $info = UserModel::create([
+                    "name"=>md5(uniqid()),
+                    "wechat_openid"=>$openid,
+                    "sessionid"=>$sessionid,
+                    "sessiontime"=>time()+1200
+
+                ]);
+            }
+            $request->session()->put('userinfo', $info);
+            //存入session  进行登录
+            $name = session('userinfo')['name'];
+            return json_encode(['ret'=>1,'msg'=>"真羡慕你，年纪轻轻就遇到了我"]);
         }
 
 
